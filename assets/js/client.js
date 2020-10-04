@@ -8,7 +8,7 @@ form.addEventListener('submit', (event) => {
     event.preventDefault();
     const formData = new FormData(form);
     const name = formData.get('name');
-    const content =  formData.get('content');
+    const content = formData.get('content');
 
     const pop = {
         name,
@@ -32,3 +32,11 @@ form.addEventListener('submit', (event) => {
         loadingElement.style.display = 'none';
     });
 });
+
+function listAllPops(){
+    fetch(API_URL)
+    .then(response => response.json())
+    .then(pops => {
+        console.log(pops);
+    });
+}

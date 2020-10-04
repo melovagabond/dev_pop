@@ -15,19 +15,26 @@ app.get('/', (req, res) => {
     });
 });
 
-function isValidPop(pop){
+app.get('/pops', (req,res,) =>{
+    pops
+        .find()
+        .then(pops => {
+            res.json(pops);
+        });
+});
+
+function isValidPop(pop) {
     return pop.name && pop.name.toString().trim() !== '' &&
-    pop.content && pop.content.toString().trim() !== '';
+        pop.content && pop.content.toString().trim() !== '';
 
 }
 
 app.post('/pops', (req, res) => {
-    if(isValidPop(req.body)){
-        //insert into db..
+    if (isValidPop(req.body)) {
         const pop = {
             name: req.body.name.toString(),
             content: req.body.content.toString(),
-            created: new Date()
+            created: new Date(),
         };
 
         pops
@@ -35,7 +42,7 @@ app.post('/pops', (req, res) => {
             .then(createdPop => {
                 res.json(createdPop);
             });
-    } else{
+    } else {
         res.status(422);
         res.json({
             message: 'Hey! Name and Content are Required!'
@@ -46,4 +53,5 @@ app.post('/pops', (req, res) => {
 
 app.listen(5000, () => {
     console.log('Listening on http://localhost: 5000');
+    console.log(pops)
 });
